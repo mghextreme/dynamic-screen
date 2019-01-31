@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:300,600');
+
+$primary-font: 'Lato', 'Open Sans', Helvetica, sans-serif;
+$secondary-font: 'Montserrat', 'Lato', 'Open Sans', Helvetica, sans-serif;
+
+$color-background: #121519;
+$color-foreground: #eeeef2;
+$color-blue: #294973;
+$color-blue-2: #203959;
+$color-red: #CC4B3E;
+$color-green: #5D9623;
+$color-yellow: #D1B821;
+
+$capgemini-blue: #0070ad;
+$capgemini-light-blue: #00acdb;
+$capgemini-green: #73e938;
+$capgemini-red: #ff0039;
+
+@mixin fullscreen(){
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+@mixin flex-box(){
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  align-content: center;
+  justify-content: center;
+}
