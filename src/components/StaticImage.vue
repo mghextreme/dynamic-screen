@@ -9,13 +9,13 @@ export default {
   name: 'StaticImage',
   props: {
     image: {
-      default: 'images/countryside.jpg',
+      default: 'images/capgemini.jpg',
       type: String
     }
   },
   computed: {
-    imageUrl: function(){
-      return 'url(\'' + this.image + '\')';
+    imageUrl: function () {
+      return 'url(\'' + this.image + '\')'
     }
   }
 }

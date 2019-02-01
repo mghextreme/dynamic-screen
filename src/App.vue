@@ -5,45 +5,46 @@
 </template>
 
 <script>
-import Clock from './components/Clock.vue';
-import StaticImage from './components/StaticImage.vue';
+import Clock from './components/Clock.vue'
+import StaticImage from './components/StaticImage.vue'
 
 var slides = [
-  "Clock",
-  "StaticImage"
-];
+  'Clock',
+  'StaticImage'
+]
 
 export default {
   name: 'app',
-  data: function(){
+  data: function () {
     return {
       index: 0,
       type: slides[0],
       ticker: null
-    };
+    }
   },
   methods: {
-    next: function(){
-      this.index++;
-      if (this.index >= slides.length)
-        this.index = 0;
-      
-      this.type = slides[this.index];
+    next: function () {
+      this.index++
+      if (this.index >= slides.length) {
+        this.index = 0
+      }
+
+      this.type = slides[this.index]
     },
-    play: function(){
-      this.ticker = setInterval(this.next, 5000);
+    play: function () {
+      this.ticker = setInterval(this.next, 10000)
     },
-    pause: function(){
-      clearInterval(this.ticker);
+    pause: function () {
+      clearInterval(this.ticker)
     }
   },
   components: {
     Clock,
     StaticImage
   },
-  created: function(){
-    console.log(this);
-    this.play();
+  created: function () {
+    console.log(this)
+    this.play()
   }
 }
 </script>
@@ -57,10 +58,10 @@ body {
 
 #app {
   @include fullscreen();
-  
+
   font-family: $primary-font;
   font-size: 16px;
-  
+
   text-align: center;
   background: $color-background;
   color: $color-foreground;

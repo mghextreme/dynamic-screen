@@ -19,7 +19,7 @@ export default {
   props: {
     timeZone: Number
   },
-  data: function(){
+  data: function () {
     return {
       hour: 0,
       minute: 0,
@@ -29,32 +29,32 @@ export default {
       year: 0,
       date: new Date(Date.now()),
       ticker: null
-    };
+    }
   },
   methods: {
-    format: function(number){
-      var concat = '00' + number;
-      return concat.substring(concat.length - 2);
+    format: function (number) {
+      var concat = '00' + number
+      return concat.substring(concat.length - 2)
     },
-    update: function(){
-      this.date = new Date(Date.now());
-      this.year = this.date.getFullYear();
-      this.month = this.date.getMonth() + 1;
-      this.day = this.date.getDate();
-      this.hour = this.date.getHours();
-      this.minute = this.date.getMinutes();
-      this.second = this.date.getSeconds();
+    update: function () {
+      this.date = new Date(Date.now())
+      this.year = this.date.getFullYear()
+      this.month = this.date.getMonth() + 1
+      this.day = this.date.getDate()
+      this.hour = this.date.getHours()
+      this.minute = this.date.getMinutes()
+      this.second = this.date.getSeconds()
     },
-    tick: function(){
-      this.second++;
-      while (this.second >= 60){
-        this.update();
+    tick: function () {
+      this.second++
+      while (this.second >= 60) {
+        this.update()
       }
     }
   },
-  created: function(){
-    this.update();
-    this.ticker = setInterval(this.tick, 1000);
+  created: function () {
+    this.update()
+    this.ticker = setInterval(this.tick, 1000)
   }
 }
 </script>
