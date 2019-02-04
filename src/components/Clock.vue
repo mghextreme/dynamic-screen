@@ -14,11 +14,11 @@
 </template>
 
 <script>
+import SlideBase from './SlideBase.vue'
+
 export default {
+  extends: SlideBase,
   name: 'Clock',
-  props: {
-    timeZone: Number
-  },
   data: function () {
     return {
       hour: 0,

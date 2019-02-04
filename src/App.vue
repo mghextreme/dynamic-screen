@@ -1,49 +1,48 @@
 <template>
   <div id="app">
-    <div v-bind:is="type"></div>
+    <div v-bind:is="current.name" v-bind:params="current.params"></div>
   </div>
 </template>
 
 <script>
-import Clock from './components/Clock.vue'
-import StaticImage from './components/StaticImage.vue'
+import Configuration from './slides.js'
 
-var slides = [
-  'Clock',
-  'StaticImage'
-]
+var components = {}
+for (var i = 0; i < Configuration.length; i++) {
+  components[Configuration[i].name] = Configuration[i].component
+}
 
 export default {
   name: 'app',
   data: function () {
     return {
+      status: 'paused',
       index: 0,
-      type: slides[0],
-      ticker: null
+      current: Configuration[0],
+      timeout: null
     }
   },
   methods: {
     next: function () {
       this.index++
-      if (this.index >= slides.length) {
+      if (this.index >= Configuration.length) {
         this.index = 0
       }
 
-      this.type = slides[this.index]
+      this.current = Configuration[this.index]
+      this.type = this.current.name
     },
     play: function () {
-      this.ticker = setInterval(this.next, 10000)
+      this.status = 'playing'
+      this.timeout = setTimeout(this.next, this.current.time)
     },
     pause: function () {
-      clearInterval(this.ticker)
+      this.status = 'paused'
+      clearTimeout(this.timeout)
     }
   },
-  components: {
-    Clock,
-    StaticImage
-  },
+  components: components,
   created: function () {
-    console.log(this)
     this.play()
   }
 }

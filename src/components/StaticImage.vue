@@ -5,17 +5,19 @@
 </template>
 
 <script>
+import SlideBase from './SlideBase.vue'
+
 export default {
+  extends: SlideBase,
   name: 'StaticImage',
-  props: {
-    image: {
-      default: 'images/capgemini.jpg',
-      type: String
-    }
-  },
   computed: {
     imageUrl: function () {
-      return 'url(\'' + this.image + '\')'
+      var defaultImage = 'images/capgemini.jpg'
+      if (this.params != undefined && this.params.image != undefined) {
+        defaultImage = this.params.image
+      }
+
+      return 'url(\'' + defaultImage + '\')'
     }
   }
 }
