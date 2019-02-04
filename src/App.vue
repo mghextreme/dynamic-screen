@@ -42,6 +42,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import 'assets/sass/reset';
 @import 'assets/sass/defaults';
 
 body {
