@@ -8,7 +8,7 @@ export default {
   props: {
     params: Object
   },
-  data: function() {
+  data: function () {
     return {
       timeout: null
     }
@@ -17,12 +17,14 @@ export default {
     reset: function () { },
     play: function () { },
     pause: function () { },
-    enter: function() {
+    enter: function () {
       this.timeout = setTimeout(this.leave, 7000)
     },
-    leave: function () { }
+    leave: function () {
+      this.$emit('end')
+    }
   },
-  mounted: function() {
+  mounted: function () {
     this.$emit('mounted', this)
     this.enter()
   }

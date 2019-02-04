@@ -32,12 +32,6 @@ export default {
     }
   },
   methods: {
-    enter: function() {
-      this.timeout = setTimeout(this.leave, this.params.time)
-    },
-    leave: function() {
-      this.$emit('end')
-    },
     format: function (number) {
       var concat = '00' + number
       return concat.substring(concat.length - 2)

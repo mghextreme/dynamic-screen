@@ -10,18 +10,10 @@ import SlideBase from './SlideBase.vue'
 export default {
   extends: SlideBase,
   name: 'StaticImage',
-  methods: {
-    enter: function() {
-      this.timeout = setTimeout(this.leave, this.params.time)
-    },
-    leave: function() {
-      this.$emit('end')
-    }
-  },
   computed: {
     imageUrl: function () {
       var defaultImage = 'images/capgemini.jpg'
-      if (this.params != undefined && this.params.image != undefined) {
+      if (this.params !== undefined && this.params.image !== undefined) {
         defaultImage = this.params.image
       }
 
