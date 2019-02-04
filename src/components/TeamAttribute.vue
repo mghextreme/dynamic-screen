@@ -31,7 +31,7 @@ export default {
     padding-left: 0.3em;
     font-size: 2em;
   }
-  
+
   span.value {
     position: absolute;
     top: 0;

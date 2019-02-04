@@ -48,14 +48,16 @@ export default {
     getRandomAttributes: function (attrArray) {
       var attrs = []
 
-      if (attrArray.length < 2)
+      if (attrArray.length < 2) {
         return attrArray
+      }
 
       var ix = Math.floor(Math.random() * attrArray.length)
       var ix2 = Math.floor(Math.random() * (attrArray.length - 1))
-      if (ix2 >= ix)
-        ix2++;
-      
+      if (ix2 >= ix) {
+        ix2++
+      }
+
       attrs.push(attrArray[ix])
       attrs.push(attrArray[ix2])
 

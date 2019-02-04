@@ -9,8 +9,7 @@ export default [
     params: {
       time: 7000
     }
-  }
-  ,
+  },
   {
     component: StaticImage,
     name: 'StaticImage',
@@ -18,8 +17,7 @@ export default [
       time: 7000,
       image: 'images/capgemini.jpg'
     }
-  }
-  ,
+  },
   {
     component: Team,
     name: 'Team',
@@ -48,7 +46,8 @@ export default [
             number: 2
           }
         ]
-      },{
+      },
+      {
         name: 'Nathaniel F L Zanotto',
         photo: 'images/team/nathaniel.jpg',
         description: 'Programador RPA',
