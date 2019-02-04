@@ -14,6 +14,7 @@ export default {
     }
   },
   methods: {
+    setup: function () { },
     reset: function () { },
     play: function () { },
     pause: function () { },
@@ -23,6 +24,9 @@ export default {
     leave: function () {
       this.$emit('end')
     }
+  },
+  beforeMount: function () {
+    this.setup()
   },
   mounted: function () {
     this.$emit('mounted', this)

@@ -32,6 +32,10 @@ export default {
     }
   },
   methods: {
+    setup: function () {
+      this.update()
+      this.ticker = setInterval(this.tick, 1000)
+    },
     format: function (number) {
       var concat = '00' + number
       return concat.substring(concat.length - 2)
@@ -51,10 +55,6 @@ export default {
         this.update()
       }
     }
-  },
-  created: function () {
-    this.update()
-    this.ticker = setInterval(this.tick, 1000)
   }
 }
 </script>

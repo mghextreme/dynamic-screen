@@ -39,6 +39,9 @@ export default {
     }
   },
   methods: {
+    setup: function () {
+      this.person = this.getRandomMember()
+    },
     getRandomMember: function () {
       var rand = Math.floor(Math.random() * this.values.team.length)
       var member = this.values.team[rand]
@@ -66,9 +69,6 @@ export default {
   },
   components: {
     TeamAttribute
-  },
-  created: function () {
-    this.person = this.getRandomMember()
   }
 }
 </script>

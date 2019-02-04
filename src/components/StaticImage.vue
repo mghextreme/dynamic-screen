@@ -6,18 +6,19 @@
 
 <script>
 import SlideBase from './SlideBase.vue'
+import jQuery from 'jquery'
+
+var defaults = {
+  image: 'images/capgemini.jpg'
+}
 
 export default {
   extends: SlideBase,
   name: 'StaticImage',
   computed: {
     imageUrl: function () {
-      var defaultImage = 'images/capgemini.jpg'
-      if (this.params !== undefined && this.params.image !== undefined) {
-        defaultImage = this.params.image
-      }
-
-      return 'url(\'' + defaultImage + '\')'
+      var values = jQuery.$extend(true, defaults, this.params)
+      return 'url(\'' + values.image + '\')'
     }
   }
 }
