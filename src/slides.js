@@ -4,13 +4,15 @@ import StaticImage from './components/StaticImage.vue'
 export default [{
   component: Clock,
   name: 'Clock',
-  time: 7000
+  params: {
+    time: 7000
+  }
 },
 {
   component: StaticImage,
   name: 'StaticImage',
-  time: 7000,
   params: {
+    time: 7000,
     image: 'images/capgemini.jpg'
   }
 }]

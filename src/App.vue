@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div v-bind:is="current.name" v-bind:params="current.params"></div>
+    <div v-bind:is="current.name" v-bind:params="current.params" v-on:end="next()"></div>
   </div>
 </template>
 
@@ -18,8 +18,7 @@ export default {
     return {
       status: 'paused',
       index: 0,
-      current: Configuration[0],
-      timeout: null
+      current: Configuration[0]
     }
   },
   methods: {
@@ -30,21 +29,15 @@ export default {
       }
 
       this.current = Configuration[this.index]
-      this.type = this.current.name
     },
     play: function () {
       this.status = 'playing'
-      this.timeout = setTimeout(this.next, this.current.time)
     },
     pause: function () {
       this.status = 'paused'
-      clearTimeout(this.timeout)
     }
   },
-  components: components,
-  created: function () {
-    this.play()
-  }
+  components: components
 }
 </script>
 

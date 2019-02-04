@@ -8,12 +8,23 @@ export default {
   props: {
     params: Object
   },
+  data: function() {
+    return {
+      timeout: null
+    }
+  },
   methods: {
     reset: function () { },
     play: function () { },
     pause: function () { },
-    enter: function () { },
+    enter: function() {
+      this.timeout = setTimeout(this.leave, 7000)
+    },
     leave: function () { }
+  },
+  mounted: function() {
+    this.$emit('mounted', this)
+    this.enter()
   }
 }
 </script>
