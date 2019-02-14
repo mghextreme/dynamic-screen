@@ -35,7 +35,7 @@ export default {
   },
   computed: {
     values: function () {
-      return jQuery.extend(true, this.params, defaults)
+      return jQuery.extend(true, defaults, this.params)
     }
   },
   methods: {

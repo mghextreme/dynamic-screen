@@ -17,7 +17,7 @@ export default {
   name: 'StaticImage',
   computed: {
     imageUrl: function () {
-      var values = jQuery.$extend(true, defaults, this.params)
+      var values = jQuery.extend(true, defaults, this.params)
       return 'url(\'' + values.image + '\')'
     }
   }

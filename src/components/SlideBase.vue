@@ -19,7 +19,7 @@ export default {
     play: function () { },
     pause: function () { },
     enter: function () {
-      this.timeout = setTimeout(this.leave, 7000)
+      this.timeout = setTimeout(this.leave, this.params.time)
     },
     leave: function () {
       this.$emit('end')
