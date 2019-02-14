@@ -7,7 +7,11 @@ export default [
     component: Clock,
     name: 'Clock',
     params: {
-      time: 7000
+      time: 6000,
+      animation: {
+        enter: 2000,
+        leave: 1000
+      }
     }
   },
   {
@@ -15,7 +19,11 @@ export default [
     name: 'StaticImage',
     params: {
       time: 7000,
-      image: 'images/capgemini.jpg'
+      image: 'images/staticimage.jpg',
+      animation: {
+        enter: 1000,
+        leave: 1000
+      }
     }
   },
   {
@@ -23,41 +31,33 @@ export default [
     name: 'Team',
     params: {
       time: 11000,
-      title: 'Conheça a equipe de RPA',
+      title: 'Get to know our team',
       team: [{
-        name: 'Matias G Henschel',
-        photo: 'images/team/matias.png',
-        description: 'Programador RPA',
+        name: 'John Doe',
+        photo: 'images/team/default.jpg',
+        description: 'Team Leader',
         attributes: [
           {
-            name: 'Programador',
+            name: 'Commitment',
             number: 9
           },
           {
-            name: 'Vida social',
+            name: 'Haircut',
             number: 3
-          },
-          {
-            name: 'Teimosia',
-            number: 7
-          },
-          {
-            name: 'Culinária',
-            number: 2
           }
         ]
       },
       {
-        name: 'Nathaniel F L Zanotto',
-        photo: 'images/team/nathaniel.jpg',
-        description: 'Programador RPA',
+        name: 'Mary Smith',
+        photo: 'images/team/default.jpg',
+        description: 'HR',
         attributes: [
           {
-            name: 'Teorização e argumentação',
-            number: 10
+            name: 'Talent discovery',
+            number: 8
           },
           {
-            name: 'Agressividade',
+            name: 'Jokes',
             number: 4
           }
         ]

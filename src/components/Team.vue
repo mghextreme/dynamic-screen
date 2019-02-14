@@ -20,22 +20,16 @@ import TeamAttribute from './TeamAttribute.vue'
 import SlideBase from './SlideBase.vue'
 import jQuery from 'jquery'
 
-var defaults = {
-  title: 'Conheça nosso time',
-  team: []
-}
-
 export default {
   extends: SlideBase,
   name: 'Team',
   data: function () {
     return {
-      person: {}
-    }
-  },
-  computed: {
-    values: function () {
-      return jQuery.extend(true, defaults, this.params)
+      person: {},
+      defaults: {
+        title: 'Team members',
+        team: []
+      }
     }
   },
   methods: {

@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import $ from 'jquery';
+
 export default {
   name: 'SlideBase',
   props: {
@@ -10,7 +12,15 @@ export default {
   },
   data: function () {
     return {
+      defaults: {
+        time: 6000
+      },
       timeout: null
+    }
+  },
+  computed: {
+    values: function () {
+      return $.extend(true, this.defaults, this.params)
     }
   },
   methods: {
