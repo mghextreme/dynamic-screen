@@ -9,7 +9,7 @@ import SlideBase from './SlideBase.vue'
 import jQuery from 'jquery'
 
 var defaults = {
-  image: 'images/capgemini.jpg'
+  image: 'images/staticimage.jpg'
 }
 
 export default {
