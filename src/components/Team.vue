@@ -18,7 +18,8 @@
 <script>
 import TeamAttribute from './TeamAttribute.vue'
 import SlideBase from './SlideBase.vue'
-import jQuery from 'jquery'
+import $ from 'jquery'
+import anime from 'animejs/lib/anime.es.js'
 
 export default {
   extends: SlideBase,
@@ -28,6 +29,14 @@ export default {
       person: {},
       defaults: {
         title: 'Team members',
+        animation: {
+          enter: 2000,
+          leave: 1000
+        },
+        stage: {
+          members: 1,
+          order: 'RAND'
+        },
         team: []
       }
     }
@@ -59,6 +68,19 @@ export default {
       attrs.push(attrArray[ix2])
 
       return attrs
+    },
+    enter: function () {
+      var tl = anime.timeline({
+        easing: 'easeOutExpo',
+        duration: this.values.time
+      })
+      tl.add({
+        targets: $(this.$el).children('.person')[0],
+        scale: [0, 1],
+        duration: this.values.animation.enter
+      }, 0)
+
+      tl.finished.then(this.leave)
     }
   },
   components: {
