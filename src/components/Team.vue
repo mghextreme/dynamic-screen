@@ -26,6 +26,8 @@ export default {
   name: 'Team',
   data: function () {
     return {
+      current: 0,
+      currentQueue: [],
       person: {},
       defaults: {
         title: 'Team members',
@@ -34,7 +36,7 @@ export default {
           leave: 1000
         },
         stage: {
-          members: 1,
+          amount: 2,
           order: 'RAND'
         },
         team: []
@@ -43,6 +45,7 @@ export default {
   },
   methods: {
     setup: function () {
+      this.current = 0
       this.person = this.getRandomMember()
     },
     getRandomMember: function () {
@@ -69,18 +72,90 @@ export default {
 
       return attrs
     },
-    enter: function () {
+    enterMember: function () {
       var tl = anime.timeline({
-        easing: 'easeOutExpo',
-        duration: this.values.time
+        easing: 'linear'
       })
       tl.add({
-        targets: $(this.$el).children('.person')[0],
-        scale: [0, 1],
+        targets: $(this.$el).find('.person .thumbnail')[0],
+        scale: {
+          value: [0, 1],
+          easing: 'easeOutExpo'
+        },
+        rotate: {
+          value: [40, 0],
+          easing: 'easeOutElastic'
+        },
+        duration: 1500
+      }, 0)
+      tl.add({
+        targets: $(this.$el).find('.person .info .name')[0],
+        translateX: {
+          value: [60, 0],
+          easing: 'easeOutCubic'
+        },
+        opacity: [0, 1],
+        duration: 2000
+      }, 250)
+      tl.add({
+        targets: $(this.$el).find('.person .info .desc')[0],
+        translateX: {
+          value: [40, 0],
+          easing: 'easeOutCubic'
+        },
+        opacity: [0, 0.7],
+        duration: 1600
+      }, 800)
+
+      tl.finished.then(this.leaveMember)
+    },
+    leaveMember: function () {
+      var tl = anime.timeline({
+        easing: 'easeInExpo'
+      })
+      tl.add({
+        targets: $(this.$el).find('.person .thumbnail')[0],
+        scale: [1, 0],
         duration: this.values.animation.enter
       }, 0)
 
-      tl.finished.then(this.leave)
+      tl.finished.then(this.nextMember)
+    },
+    nextMember: function () {
+      this.current += 1
+      if (this.current < this.values.stage.amount) {
+        this.person = this.getRandomMember()
+        this.enterMember()
+      } else {
+        this.leave()
+      }
+    },
+    enter: function () {
+      var tl = anime.timeline({
+        easing: 'easeOutExpo'
+      })
+      tl.add({
+        targets: $(this.$el).children('.title')[0],
+        height: [0, '1em'],
+        duration: this.values.animation.enter
+      }, 0)
+
+      tl.finished.then(this.enterMember)
+    },
+    leave: function () {
+      var tl = anime.timeline({
+        easing: 'easeInExpo'
+      })
+      tl.add({
+        targets: $(this.$el).children('.title')[0],
+        opacity: [1, 0],
+        duration: this.values.animation.leave
+      }, 0)
+
+      var comp = this
+      tl.finished.then(function () {
+        comp.$emit('end')
+      })
     }
   },
   components: {
@@ -102,6 +177,7 @@ export default {
   h1.title {
     font-size: 4em;
     margin-bottom: 1em;
+    overflow: hidden;
   }
 
   .person {
@@ -111,6 +187,7 @@ export default {
       flex: 0 0 auto;
       border: 10px solid $color-blue;
       margin-right: 2em;
+      transform: scale(0);
 
       img {
         width: 24em;
