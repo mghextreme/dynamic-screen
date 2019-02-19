@@ -30,8 +30,16 @@ export default [
     component: Team,
     name: 'Team',
     params: {
-      time: 11000,
       title: 'Get to know our team',
+      animation: {
+        enter: 2000,
+        leave: 1000
+      },
+      stage: {
+        amount: 2,
+        time: 4000,
+        order: 'RAND'
+      },
       team: [{
         name: 'John Doe',
         photo: 'images/team/default.jpg',

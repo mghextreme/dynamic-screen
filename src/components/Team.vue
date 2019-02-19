@@ -8,8 +8,7 @@
       <div class="info">
         <h2 class="name">{{ person.name }}</h2>
         <p class="desc">{{ person.description }}</p>
-        <TeamAttribute v-if="person.attributes.length > 0" v-bind:attr-name="person.attributes[0].name" v-bind:attr-value="person.attributes[0].number"></TeamAttribute>
-        <TeamAttribute v-if="person.attributes.length > 1" v-bind:attr-name="person.attributes[1].name" v-bind:attr-value="person.attributes[1].number"></TeamAttribute>
+        <TeamAttribute v-for="item in person.attributes" :attr-name="item.name" :attr-value="item.number" :key="item.name"></TeamAttribute>
       </div>
     </div>
   </div>
@@ -37,6 +36,7 @@ export default {
         },
         stage: {
           amount: 2,
+          time: 4000,
           order: 'RAND'
         },
         team: []
@@ -55,8 +55,6 @@ export default {
       return member
     },
     getRandomAttributes: function (attrArray) {
-      var attrs = []
-
       if (attrArray.length < 2) {
         return attrArray
       }
@@ -67,17 +65,20 @@ export default {
         ix2++
       }
 
+      var attrs = []
       attrs.push(attrArray[ix])
       attrs.push(attrArray[ix2])
 
       return attrs
     },
     enterMember: function () {
+      var person = $(this.$el).find('.person')
+      person.css({ transform: '', opacity: 1 })
       var tl = anime.timeline({
         easing: 'linear'
       })
       tl.add({
-        targets: $(this.$el).find('.person .thumbnail')[0],
+        targets: person.find('.thumbnail')[0],
         scale: {
           value: [0, 1],
           easing: 'easeOutExpo'
@@ -89,7 +90,7 @@ export default {
         duration: 1500
       }, 0)
       tl.add({
-        targets: $(this.$el).find('.person .info .name')[0],
+        targets: person.find('.info .name')[0],
         translateX: {
           value: [60, 0],
           easing: 'easeOutCubic'
@@ -98,7 +99,7 @@ export default {
         duration: 2000
       }, 250)
       tl.add({
-        targets: $(this.$el).find('.person .info .desc')[0],
+        targets: person.find('.info .desc')[0],
         translateX: {
           value: [40, 0],
           easing: 'easeOutCubic'
@@ -106,17 +107,32 @@ export default {
         opacity: [0, 0.7],
         duration: 1600
       }, 800)
+      tl.add({
+        targets: person.find('.info .team-attribute').toArray(),
+        opacity: [0, 1],
+        duration: 1000,
+        delay: anime.stagger(400)
+      }, 1200)
 
-      tl.finished.then(this.leaveMember)
+      var comp = this
+      tl.finished.then(function () {
+        setTimeout(comp.leaveMember, comp.values.stage.time)
+      })
     },
     leaveMember: function () {
       var tl = anime.timeline({
-        easing: 'easeInExpo'
+        easing: 'linear'
       })
       tl.add({
-        targets: $(this.$el).find('.person .thumbnail')[0],
-        scale: [1, 0],
-        duration: this.values.animation.enter
+        targets: $(this.$el).find('.person')[0],
+        opacity: [1, 0],
+        duration: this.values.animation.leave
+      }, 0)
+      tl.add({
+        targets: $(this.$el).find('.person')[0],
+        translateY: [0, 100],
+        duration: this.values.animation.leave,
+        easing: 'easeInCirc'
       }, 0)
 
       tl.finished.then(this.nextMember)
@@ -203,6 +219,7 @@ export default {
       h2.name {
         font-size: 5em;
         margin-bottom: 0.1em;
+        opacity: 0;
       }
 
       p {
@@ -210,6 +227,11 @@ export default {
         font-size: 2em;
         opacity: 0.6;
         margin-bottom: 1em;
+        opacity: 0;
+      }
+
+      .team-attribute {
+        opacity: 0;
       }
     }
   }
