@@ -18,6 +18,7 @@
 import TeamAttribute from './TeamAttribute.vue'
 import SlideBase from './SlideBase.vue'
 import $ from 'jquery'
+import _ from 'lodash'
 import anime from 'animejs/lib/anime.es.js'
 
 export default {
@@ -46,30 +47,13 @@ export default {
   methods: {
     setup: function () {
       this.current = 0
-      this.person = this.getRandomMember()
-    },
-    getRandomMember: function () {
-      var rand = Math.floor(Math.random() * this.values.team.length)
-      var member = this.values.team[rand]
-      member.attributes = this.getRandomAttributes(member.attributes)
-      return member
-    },
-    getRandomAttributes: function (attrArray) {
-      if (attrArray.length < 2) {
-        return attrArray
-      }
 
-      var ix = Math.floor(Math.random() * attrArray.length)
-      var ix2 = Math.floor(Math.random() * (attrArray.length - 1))
-      if (ix2 >= ix) {
-        ix2++
-      }
-
-      var attrs = []
-      attrs.push(attrArray[ix])
-      attrs.push(attrArray[ix2])
-
-      return attrs
+      var allMembers = _.cloneDeep(this.values.team)
+      this.currentQueue = _.take(_.shuffle(allMembers), this.values.stage.amount)
+      _.forEach(this.currentQueue, function (value) {
+        value.attributes = _.take(_.shuffle(value.attributes), 2)
+      })
+      this.person = this.currentQueue[0]
     },
     enterMember: function () {
       var person = $(this.$el).find('.person')
@@ -140,7 +124,7 @@ export default {
     nextMember: function () {
       this.current += 1
       if (this.current < this.values.stage.amount) {
-        this.person = this.getRandomMember()
+        this.person = this.currentQueue[this.current]
         this.enterMember()
       } else {
         this.leave()
