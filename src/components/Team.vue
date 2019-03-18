@@ -8,7 +8,9 @@
       <div class="info">
         <h2 class="name">{{ person.name }}</h2>
         <p class="desc">{{ person.description }}</p>
-        <TeamAttribute v-for="item in person.attributes" :attr-name="item.name" :attr-value="item.number" :key="item.name"></TeamAttribute>
+        <div class="attributes">
+          <TeamAttribute v-for="item in person.attributes" :attr-name="item.name" :attr-value="item.number" :key="item.name"></TeamAttribute>
+        </div>
       </div>
     </div>
   </div>
@@ -92,10 +94,13 @@ export default {
         duration: 1600
       }, 800)
       tl.add({
-        targets: person.find('.info .team-attribute').toArray(),
+        targets: person.find('.info .attributes')[0],
+        translateX: {
+          value: [40, 0],
+          easing: 'easeOutCubic'
+        },
         opacity: [0, 1],
-        duration: 1000,
-        delay: anime.stagger(400)
+        duration: 1400
       }, 1200)
 
       var comp = this
@@ -107,13 +112,14 @@ export default {
       var tl = anime.timeline({
         easing: 'linear'
       })
+      var person = $(this.$el).find('.person')
       tl.add({
-        targets: $(this.$el).find('.person')[0],
+        targets: person[0],
         opacity: [1, 0],
         duration: this.values.animation.leave
       }, 0)
       tl.add({
-        targets: $(this.$el).find('.person')[0],
+        targets: person[0],
         translateY: [0, 100],
         duration: this.values.animation.leave,
         easing: 'easeInCirc'
@@ -125,7 +131,7 @@ export default {
       this.current += 1
       if (this.current < this.values.stage.amount) {
         this.person = this.currentQueue[this.current]
-        this.enterMember()
+        setTimeout(this.enterMember(), 500)
       } else {
         this.leave()
       }
@@ -136,7 +142,7 @@ export default {
       })
       tl.add({
         targets: $(this.$el).children('.title')[0],
-        height: [0, '1em'],
+        height: [0, '1.2em'],
         duration: this.values.animation.enter
       }, 0)
 
@@ -214,7 +220,7 @@ export default {
         opacity: 0;
       }
 
-      .team-attribute {
+      .attributes {
         opacity: 0;
       }
     }
