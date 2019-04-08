@@ -75,7 +75,6 @@ export default {
           $(anim.animatables[0].target).remove()
         }
       })
-      console.log(fullAnimation)
       anime(fullAnimation)
       this.current++
       setTimeout(this.nextImage, this.values.animation.enter + this.values.animation.each)
