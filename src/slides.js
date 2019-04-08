@@ -1,6 +1,7 @@
 import Clock from './components/Clock.vue'
 import StaticImage from './components/StaticImage.vue'
 import Team from './components/Team.vue'
+import Album from './components/Album.vue'
 
 export default [
   {
@@ -70,6 +71,23 @@ export default [
           }
         ]
       }]
+    }
+  },
+  {
+    component: Album,
+    name: 'Album',
+    params: {
+      images: [
+        'images/staticimage.jpg',
+        'images/staticimage.jpg',
+        'images/staticimage.jpg'
+      ],
+      intro: null,
+      animation: {
+        enter: 1000,
+        leave: 1000,
+        each: 3500
+      }
     }
   }
 ]
